@@ -5,25 +5,25 @@ import {validateFields} from '../utils/common';
 import { Link } from 'react-router-dom'
 
 function Login() {
-    const [login, setLogin] = useState({email: '',
+    const [loginInfo, setLoginInfo] = useState({email: '',
         password: '',
         errorMsg: ''
     })
 
     const handleLogin = (event) => {
         event.preventDefault();
-        const { email, password } = login;
+        const { email, password } = loginInfo;
         const fieldsToValidate = [{email}, {password}];
 
         const allFieldsEntered = validateFields(fieldsToValidate);
         if (!allFieldsEntered) {
-            setLogin({
+            setLoginInfo({
                 errorMsg: {
                     signin_error: 'Please enter all the fields'
                 }
             });
         } else {
-            setLogin({
+            setLoginInfo({
                 errorMsg: {
                     signin_error: ''
                 }
@@ -32,19 +32,19 @@ function Login() {
     }
 
     const handleChange = ({target}) => {
-        setLogin({
+        setLoginInfo({
             [target.name]: target.value
         });
     }
         
     return (
         <div className="login-page">
-            <h1>Banking App</h1>
+            <h1>RK Banking</h1>
             <div className="login-form">
                 <Form onSubmit={handleLogin}>
-                    {login.errorMsg && login.errorMsg.signin_error && (
+                    {loginInfo.errorMsg && loginInfo.errorMsg.signin_error && (
                         <p className="errorMsg centered-message">
-                            {login.errorMsg.signin_error}
+                            {loginInfo.errorMsg.signin_error}
                         </p>
                     )}
                     <Form.Group controlId="email">
