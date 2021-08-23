@@ -25,18 +25,18 @@ Router.post('/signup', async (req, res) => {
             recievedFields,
             validateFieldsToUpdate
         );
-
         if (isInvalidFieldProvided) {
             return res.status(400).send({
                 signup_error: 'Invalid field.'
             });
         }
-
+        console.log(email, "email")
         const result = await pool.query(
-            'select count(*) as count from bank_user where email=$1',
-            [email]
+            `select count(*) as count from bank_user where email = $1`, [email]
         );
+        
         const count = result.rows[0].count;
+        console.log(count, "count")
         if (count > 0) {
             return res.status(400).send({
                 signup_error: 'User with this email address already exists.'

@@ -44,10 +44,11 @@ function Register() {
           },
         });
       } else {
-        setRegisInfo({ isSubmitted: true });
+        setRegisInfo({ ...regisInfo, isSubmitted: true });
         dispatch(
           registerNewUser({ first_name, last_name, email, password })
         ).then((response) => {
+          console.log(response);
           if (response.success) {
             setRegisInfo({
               successMsg: "User registered successfully.",
