@@ -10,7 +10,6 @@ export const signIn = (user) => ({
 export const initiateLogin = (email, password) => {
     return async (dispatch) => {
         try {
-            console.log(email, password, "initlogin")
             const result = await axios.post(`${BASE_API_URL}/signin`, {email, password});
             const user = result.data;
             localStorage.setItem('user_token', user.token);
@@ -25,7 +24,6 @@ export const initiateLogin = (email, password) => {
 export const registerNewUser = (data) => {
     return async (dispatch) => {
         try {
-            console.log(data, "data authFront")
             await axios.post(`${BASE_API_URL}/signup`, data);
             return {success: true};
         } catch (error) {

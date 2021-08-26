@@ -1,9 +1,10 @@
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import { registerNewUser } from "../actions/auth";
 import { validateFields } from "../utils/common";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { resetErrors } from "../actions/errors";
 
 function Register() {
   const [regisInfo, setRegisInfo] = useState({
@@ -17,6 +18,14 @@ function Register() {
     isSubmitted: false,
   });
   const dispatch = useDispatch();
+  let backerrors = useSelector((state) => state.errors);
+  
+  useEffect(() => {
+    if (backerrors.signup_error) {
+      setRegisInfo({...regisInfo, errorMsg: backerrors})};
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [backerrors]);
+
   const registerUser = (event) => {
     event.preventDefault();
     const { first_name, last_name, email, password, cpassword } = regisInfo;
@@ -30,13 +39,17 @@ function Register() {
     ];
 
     const allFieldsEntered = validateFields(fieldsToValidate);
+
     if (!allFieldsEntered) {
-      setRegisInfo({
-        ...regisInfo,
-        errorMsg: { signup_error: "Please enter all the fields." },
+      dispatch(resetErrors());
+      let error = { signup_error: "Please enter all the fields." };
+      setRegisInfo({ ...regisInfo,
+        errorMsg: error
       });
+      
     } else {
       if (password !== cpassword) {
+        dispatch(resetErrors());
         setRegisInfo({
           ...regisInfo,
           errorMsg: {
@@ -48,14 +61,13 @@ function Register() {
         dispatch(
           registerNewUser({ first_name, last_name, email, password })
         ).then((response) => {
-          console.log(response);
           if (response.success) {
             setRegisInfo({
               successMsg: "User registered successfully.",
               errorMsg: "",
             });
           }
-        });
+        })
       }
     }
   };

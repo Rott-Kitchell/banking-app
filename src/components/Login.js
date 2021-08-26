@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import { initiateLogin } from "../actions/auth";
+import { resetErrors } from "../actions/errors";
 import { validateFields } from "../utils/common";
 import { Link } from "react-router-dom";
 
@@ -12,10 +13,17 @@ function Login() {
     errorMsg: "",
   });
   const dispatch = useDispatch();
+  let errors = useSelector((state) => state.errors);
+  
+  useEffect(() => {
+    if (errors) setLoginInfo({ errorMsg: errors });
+  }, [errors]);
 
   const handleLogin = (event) => {
     event.preventDefault();
+    dispatch(resetErrors());
     const { email, password } = loginInfo;
+
     const fieldsToValidate = [{ email }, { password }];
 
     const allFieldsEntered = validateFields(fieldsToValidate);
@@ -85,4 +93,8 @@ function Login() {
   );
 }
 
-export default connect()(Login);
+const mapStateToProps = (state) => ({
+  errors: state.errors,
+});
+
+export default connect(mapStateToProps)(Login);
