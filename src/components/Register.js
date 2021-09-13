@@ -63,6 +63,7 @@ function Register() {
         ).then((response) => {
           if (response.success) {
             setRegisInfo({
+              isSubmitted: true,
               successMsg: "User registered successfully.",
               errorMsg: "",
             });
