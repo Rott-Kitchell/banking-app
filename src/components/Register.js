@@ -19,11 +19,12 @@ function Register() {
   });
   const dispatch = useDispatch();
   let backerrors = useSelector((state) => state.errors);
-  
+
   useEffect(() => {
     if (backerrors.signup_error) {
-      setRegisInfo({...regisInfo, errorMsg: backerrors})};
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+      setRegisInfo({ ...regisInfo, errorMsg: backerrors });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [backerrors]);
 
   const registerUser = (event) => {
@@ -43,10 +44,7 @@ function Register() {
     if (!allFieldsEntered) {
       dispatch(resetErrors());
       let error = { signup_error: "Please enter all the fields." };
-      setRegisInfo({ ...regisInfo,
-        errorMsg: error
-      });
-      
+      setRegisInfo({ ...regisInfo, errorMsg: error });
     } else {
       if (password !== cpassword) {
         dispatch(resetErrors());
@@ -68,7 +66,7 @@ function Register() {
               errorMsg: "",
             });
           }
-        })
+        });
       }
     }
   };

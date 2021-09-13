@@ -1,4 +1,4 @@
-import {GET_ERRORS, RESET_ERRORS} from '../utils/constants';
+import { GET_ERRORS, RESET_ERRORS } from "../utils/constants";
 
 const errorsReducer = (state = {}, action) => {
   switch (action.type) {

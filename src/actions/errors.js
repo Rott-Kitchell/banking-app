@@ -1,10 +1,10 @@
-import { GET_ERRORS, RESET_ERRORS } from '../utils/constants';
+import { GET_ERRORS, RESET_ERRORS } from "../utils/constants";
 
 export const getErrors = (errors) => ({
   type: GET_ERRORS,
-  errors
+  errors,
 });
 
 export const resetErrors = () => ({
-  type: RESET_ERRORS
+  type: RESET_ERRORS,
 });

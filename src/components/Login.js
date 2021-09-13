@@ -14,7 +14,7 @@ function Login() {
   });
   const dispatch = useDispatch();
   let errors = useSelector((state) => state.errors);
-  
+
   useEffect(() => {
     if (errors) setLoginInfo({ errorMsg: errors });
   }, [errors]);
