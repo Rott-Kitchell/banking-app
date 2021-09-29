@@ -19,10 +19,10 @@ Router.post('/signup', async (req, res) => {
             'email',
             'password'
         ];
-        const recievedFields = Object.keys(req.body);
+        const receivedFields = Object.keys(req.body);
 
         const isInvalidFieldProvided = isInvalidField(
-            recievedFields,
+            receivedFields,
             validateFieldsToUpdate
         );
         if (isInvalidFieldProvided) {
